@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using train_distributed_catching.Data;
 
@@ -31,6 +31,12 @@ namespace train_distributed_catching
                         Email = "phuckhang1088@gmail.com",
                     }
                 });
+            });
+
+            // Redis Distributed Cache
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379"; // Redis port mặc định
             });
 
             var app = builder.Build();
