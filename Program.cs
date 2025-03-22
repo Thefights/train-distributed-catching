@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using train_distributed_catching.Data;
+
 namespace train_distributed_catching
 {
     public class Program
@@ -8,6 +12,26 @@ namespace train_distributed_catching
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddEndpointsApiExplorer();
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Train Signal API",
+                    Version = "v1",
+                    Description = "API for Train Signal IR Server",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Quach Khang",
+                        Email = "phuckhang1088@gmail.com",
+                    }
+                });
+            });
 
             var app = builder.Build();
 
