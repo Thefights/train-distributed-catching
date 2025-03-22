@@ -44,8 +44,13 @@ namespace train_distributed_catching
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Train Distributed Catching API v1");
+                c.RoutePrefix = "swagger"; // Swagger UI available at: https://localhost:5001/swagger
+            });
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.MapStaticAssets();
